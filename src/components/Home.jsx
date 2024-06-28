@@ -10,7 +10,8 @@ function Home() {
   const cities = useSelector(state => state.weather.allCities);
   useEffect(() => {
     if (cities.length == 0) {
-      const arr = JSON.parse(localStorage.getItem("cities"));
+      let arr = JSON.parse(localStorage.getItem("cities"));
+      if (arr == null) arr = []; // edge case important
       dispatch(setCity(arr));
     }
   }, []);
