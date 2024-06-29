@@ -25,14 +25,14 @@ function Wind({ windData }) {
 
         <div className="w-1/5">
           <div
-            className="h-16 w-16 border-dashed border-2 border-white/40
+            className="h-16 w-16 border-dashed border-2 border-white/50
   rounded-full flex justify-center"
           >
             <div
-              className="m-0.5 w-0.5 h-15.5 bg-white/60 "
+              className="m-0.5 w-0.5 h-15.5 bg-white/70 "
               style={{ transform: `rotate(${windData.deg}deg)` }}
             >
-              <div className="h-0 w-0 border-x-4 border-x-transparent border-b-[10px] -translate-x-[3px] -translate-y-[3px] border-b-white/60"></div>
+              <div className="h-0 w-0 border-x-4 border-x-transparent border-b-[10px] -translate-x-[3px] -translate-y-[3px] border-b-white/70"></div>
             </div>
           </div>
         </div>

@@ -1,11 +1,12 @@
 import React from "react";
 import { useSelector } from "react-redux";
+import Icon from "./Icon";
 function Sun({ sunData }) {
   const currentWeather = useSelector(state => state.weather.weatherData);
 
   const sunrise = new Date(sunData.sunrise * 1000).toTimeString().slice(0, 5);
   const sunset = new Date(sunData.sunset * 1000).toTimeString().slice(0, 5);
-  const degree = Math.trunc(((currentWeather.dt * 1000 - sunData.sunrise * 1000) / (sunData.sunset - sunData.sunrise) / 1000) * 150);
+  const degree = Math.trunc(((currentWeather.dt * 1000 - sunData.sunrise * 1000) / (sunData.sunset - sunData.sunrise) / 1000) * 160);
   //   console.log(degree);
 
   return (
@@ -17,13 +18,15 @@ function Sun({ sunData }) {
         </div>
 
         <div>
-          <div className="h-16 pb-1 pt-3 overflow-clip">
+          <div className="h-16 pb-1 pt-3 px-2 overflow-clip">
             <div
-              className="h-40 w-40 bg-amber-100 border-dashed border-2 border-yellow-500
+              className="h-40 w-40 bg-amber-100 border-2 border-yellow-500
   rounded-full "
               style={{ transform: `rotate(${degree}deg)` }}
             >
-              <div className="w-5 h-5 rounded-full bg-yellow-400 translate-y-12 -translate-x-2"></div>
+              <div className="w-8 h-8 translate-y-12 -translate-x-3.5">
+                <Icon prop="sun" />
+              </div>
             </div>
           </div>
         </div>

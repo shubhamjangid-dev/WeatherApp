@@ -21,9 +21,9 @@ function WeatherCard() {
 
   const [isCelsius, setIsCelsius] = useState(true);
 
-  const callApi = () => {
-    getCurrentWeatherData(city, isCelsius).then(data => dispatch(setWeather(data)));
-    getForcastedWeatherData(city, isCelsius).then(data => dispatch(setWeatherForcast(data)));
+  const callApi = async () => {
+    await getCurrentWeatherData(city, isCelsius).then(data => dispatch(setWeather(data)));
+    await getForcastedWeatherData(city, isCelsius).then(data => dispatch(setWeatherForcast(data)));
   };
 
   useEffect(() => {
@@ -33,7 +33,26 @@ function WeatherCard() {
     callApi();
   }, [isCelsius]);
 
-  if (currentWeather.cod != 200) return <>{currentWeather.message}</>;
+  if (currentWeather.cod != 200)
+    return (
+      <>
+        <div className="w-full min-h-screen justify-center bg-gradient-to-br from-cyan-500 to-blue-500">
+          <div className="w-full max-w-xl py-3 mx-auto rounded-2xl ">
+            <div className="w-full flex justify-between px-4 pb-2  border-white/10 border-b-[1px]">
+              <button
+                onClick={() => {
+                  navigate("/");
+                }}
+                className="text-white"
+              >
+                <Icon prop="back" />
+              </button>
+            </div>
+            <div className="w-full text-white/80 text-4xl">{currentWeather.message}</div>
+          </div>
+        </div>
+      </>
+    );
   return (
     <>
       <div className="w-full min-h-screen justify-center bg-gradient-to-br from-cyan-500 to-blue-500">
@@ -68,7 +87,7 @@ function WeatherCard() {
               )}
             </div>
           </div>
-          <div className="w-full flex px-6 pt-1 text-white/90">
+          <div className="w-full flex px-6 pt-1 text-white">
             <div className="w-1/2">
               <h1 className="text-3xl text-left sm:text-5xl">
                 {currentWeather.name}, {currentWeather.sys.country}
@@ -78,11 +97,11 @@ function WeatherCard() {
               <h1 className="text-left text-3xl sm:text-4xl  ">{currentWeather.weather[0].main}</h1>
               <h1 className="text-left text-lg px-0.5 pb-3 text-white/60">{currentWeather.weather[0].description}</h1>
             </div>
-            <div className="w-1/2 justify-center">
+            <div className="w-1/2 flex ">
               <img
                 src={`https://openweathermap.org/img/wn/${currentWeather.weather[0].icon}@2x.png`}
                 alt=""
-                className="w-full"
+                className="w-full m-auto"
               />
             </div>
           </div>
@@ -102,6 +121,26 @@ function WeatherCard() {
 
           <div className="w-full px-4 py-4">
             <div className="w-full text-white bg-white/10 rounded-lg">
+              <div className="w-full px-4 flex justify-between text-xs text-white/40 py-1 ">3-hour forcast</div>
+              <div className="w-full pt-1 pb-2 flex justify-between  border-white/10 border-t-[1px]">
+                {
+                  // const hourlyForecast = currentWeather.slice(0,5);
+                  forcastedWeather &&
+                    forcastedWeather.slice(0, 5).map(ele => (
+                      <div
+                        className="w-1/6"
+                        key={ele.dt_txt}
+                      >
+                        <Forcast data={ele} />{" "}
+                      </div>
+                    ))
+                }
+              </div>
+            </div>
+          </div>
+
+          <div className="w-full px-4 pb-4">
+            <div className="w-full text-white bg-white/10 rounded-lg">
               <div className="w-full px-4 flex justify-between text-xs text-white/40 py-1 ">5-day forcast</div>
               <div className="w-full pt-1 pb-2 flex justify-between  border-white/10 border-t-[1px]">
                 {forcastedWeather &&
@@ -111,7 +150,10 @@ function WeatherCard() {
                         className="w-1/6"
                         key={ele.dt_txt}
                       >
-                        <Forcast data={ele} />{" "}
+                        <Forcast
+                          data={ele}
+                          head="day"
+                        />{" "}
                       </div>
                     ) : null
                   )}

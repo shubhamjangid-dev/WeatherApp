@@ -21,7 +21,7 @@ function Home() {
     <div className="w-full min-h-screen flex justify-center bg-gradient-to-br from-cyan-500 to-blue-500 p-8">
       <div className="w-full lg:w-1/2 md:w-3/4">
         <h1 className="text-5xl sm:text-7xl text-white">Weather App</h1>
-        <div className=" w-full h-11 flex my-8 mx-auto">
+        <div className=" w-full h-11 flex my-8 mx-auto bg-white rounded-lg">
           <input
             className="w-full rounded-l-lg outline-none pl-2"
             type="text"
