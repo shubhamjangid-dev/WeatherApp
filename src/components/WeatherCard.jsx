@@ -15,6 +15,7 @@ function WeatherCard() {
   // const { city } = useParams();
   const location = useLocation();
   const city = location.pathname.split("/").pop();
+  console.log(city);
   // data from store
   const currentWeather = useSelector(state => state.weather.weatherData);
   const forcastedWeather = useSelector(state => state.weather.weatherForcast);
