@@ -6,14 +6,15 @@ import Sun from "./Sun";
 import { useDispatch, useSelector } from "react-redux";
 import { setWeather, setWeatherForcast, addCity } from "../store/weatherSlice";
 import { getCurrentWeatherData, getForcastedWeatherData } from "../OpenWeatherMap/Service";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, useLocation } from "react-router-dom";
 import Forcast from "./Forcast";
 
 function WeatherCard() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { city } = useParams();
-
+  // const { city } = useParams();
+  const location = useLocation();
+  const city = location.pathname.split("/").pop();
   // data from store
   const currentWeather = useSelector(state => state.weather.weatherData);
   const forcastedWeather = useSelector(state => state.weather.weatherForcast);
