@@ -28,7 +28,7 @@ function WeatherCard() {
 
   useEffect(() => {
     callApi();
-  }, []);
+  }, [city]);
   useEffect(() => {
     callApi();
   }, [isCelsius]);
